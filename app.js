@@ -56,6 +56,7 @@ async function InsertImageList() {
     console.log(err.message);
   }
 }
+
 async function InsertAlbums() {
   try {
     let db = await connectDB();
