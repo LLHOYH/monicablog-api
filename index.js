@@ -8,7 +8,6 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const { uniqueAlbums, dummyImageList } = require("./dummy_data.js");
 const uri = process.env.DB_CONNECTION_STRING;
 
-
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
@@ -19,17 +18,19 @@ const client = new MongoClient(uri, {
 });
 
 app.use(cors);
-const corsAllowedOrigin = ["localhost:3000", "https://monicablog-api.vercel.app/"];
+const corsAllowedOrigin = [
+  "localhost:3000",
+  "https://monicablog-api.vercel.app/",
+];
 const corsOptions = {
-  origin:(origin,callback){
-    if(corsAllowedOrigin.includes(origin)){
-      callback(null, true)
+  origin: (origin, callback) => {
+    if (corsAllowedOrigin.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`Origin ${origin}not allowed!`));
     }
-    else{
-      callback(new Error(`Origin ${origin}not allowed!`))
-    }
-  }
-}
+  },
+};
 
 app.set("port", process.env.PORT || 3000);
 app.listen(app.get("port"), function () {
