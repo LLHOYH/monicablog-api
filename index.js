@@ -111,7 +111,7 @@ app.get("/", (req, res) => {
   res.send("Welcome to API");
 });
 
-app.get("/GetImageList", (req, res) => {
+app.get("/GetImageList", cors(corsOptions), (req, res) => {
   async function GetImageList() {
     try {
       let db = await connectDB();
@@ -129,7 +129,7 @@ app.get("/GetImageList", (req, res) => {
   GetImageList();
 });
 
-app.get("/GetAlbums", (req, res) => {
+app.get("/GetAlbums", cors(corsOptions), (req, res) => {
   async function GetAlbums() {
     try {
       let db = await connectDB();
