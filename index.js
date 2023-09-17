@@ -43,6 +43,7 @@ const corsOptions = {
   allowedHeaders: "Content-Type,Authorization",
 };
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 app.set("port", process.env.PORT || 3000);
 app.listen(app.get("port"), function () {
