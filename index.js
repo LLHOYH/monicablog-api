@@ -39,8 +39,10 @@ const corsOptions = {
       callback(new Error(`Origin ${origin} not allowed!`));
     }
   },
+  method: "GET,POST,PUT,DELETE,HEAD,PATCH",
+  allowedHeaders: "Content-Type,Authorization",
 };
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 app.set("port", process.env.PORT || 3000);
 app.listen(app.get("port"), function () {
