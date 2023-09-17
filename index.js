@@ -118,7 +118,7 @@ app.get("/GetImageList", (req, res) => {
       //this result is an array,
       //therefore need to wrap this in an object
       res.setHeader("Content-Type", "application/json");
-      res.json({ result });
+      res.json({ result: result });
     } catch (err) {
       console.log(err.message);
     }
@@ -136,7 +136,7 @@ app.get("/GetAlbums", (req, res) => {
       //this result is an array,
       //therefore need to wrap this in an object
       res.setHeader("Content-Type", "application/json");
-      res.json({ result });
+      res.json({ result: result });
     } catch (err) {
       console.log(err.message);
     }
