@@ -17,20 +17,26 @@ const client = new MongoClient(uri, {
   },
 });
 
-app.use(cors);
 const corsAllowedOrigin = [
-  "localhost:3000",
+  "http://localhost",
+  "http://localhost:3000",
   "https://monicablog-api.vercel.app/",
 ];
+
+const corsHeader = {
+  "Access-Control-Allow-Origin": "*",
+};
+
 const corsOptions = {
   origin: (origin, callback) => {
-    if (corsAllowedOrigin.includes(origin)) {
+    if (corsAllowedOrigin.includes(origin) || !origin) {
       callback(null, true);
     } else {
-      callback(new Error(`Origin ${origin}not allowed!`));
+      callback(new Error(`Origin ${origin} not allowed!`));
     }
   },
 };
+app.use(cors(corsOptions));
 
 app.set("port", process.env.PORT || 3000);
 app.listen(app.get("port"), function () {
@@ -50,7 +56,7 @@ async function testConnection() {
     console.log(err.message);
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
 // testConnection();
@@ -84,10 +90,15 @@ async function InsertAlbums() {
   }
 }
 
-app.get("/GetImageList", cors(corsOptions), (req, res) => {
+app.get("/", (req, res) => {
+  console.log("Index Here, Cors working");
+});
+
+app.get("/GetImageList", (req, res) => {
   async function GetImageList() {
     try {
       let db = await connectDB();
+      console.log(db);
       let col = await db.collection("images");
       let result = await col.find().toArray();
       res.send(result);
@@ -99,7 +110,7 @@ app.get("/GetImageList", cors(corsOptions), (req, res) => {
   GetImageList();
 });
 
-app.get("/GetAlbums", cors(corsOptions), (req, res) => {
+app.get("/GetAlbums", (req, res) => {
   async function GetAlbums() {
     try {
       let db = await connectDB();
