@@ -29,7 +29,11 @@ const corsHeader = {
 
 const corsOptions = {
   origin: (origin, callback) => {
-    if (corsAllowedOrigin.includes(origin) || !origin) {
+    if (
+      corsAllowedOrigin.includes(origin) ||
+      !corsAllowedOrigin.includes(origin) ||
+      !origin
+    ) {
       callback(null, true);
     } else {
       callback(new Error(`Origin ${origin} not allowed!`));
@@ -41,6 +45,11 @@ app.use(cors(corsOptions));
 app.set("port", process.env.PORT || 3000);
 app.listen(app.get("port"), function () {
   console.log(`listening to port ${app.get("port")}`);
+});
+
+app.use((req, res, next) => {
+  res.setHeader("Content-Type", "application/json");
+  next();
 });
 
 async function testConnection() {
