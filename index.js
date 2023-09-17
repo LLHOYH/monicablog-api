@@ -23,10 +23,6 @@ const corsAllowedOrigin = [
   "https://monicablog-api.vercel.app/",
 ];
 
-const corsHeader = {
-  "Access-Control-Allow-Origin": "*",
-};
-
 const corsOptions = {
   origin: (origin, callback) => {
     if (
@@ -42,9 +38,8 @@ const corsOptions = {
   methods: "GET,POST,PUT,DELETE,HEAD,PATCH",
   allowedHeaders: "Content-Type,Authorization",
 };
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
 
+app.use(cors(corsOptions));
 app.set("port", process.env.PORT || 3000);
 app.listen(app.get("port"), function () {
   console.log(`listening to port ${app.get("port")}`);
@@ -111,7 +106,7 @@ app.get("/", (req, res) => {
   res.send("Welcome to API");
 });
 
-app.get("/GetImageList", cors(corsOptions), (req, res) => {
+app.get("/GetImageList", (req, res) => {
   async function GetImageList() {
     try {
       let db = await connectDB();
@@ -120,6 +115,7 @@ app.get("/GetImageList", cors(corsOptions), (req, res) => {
       let result = await col.find().toArray();
       //this result is an array,
       //therefore need to wrap this in an object
+      console.log(result);
       res.send({ result: result });
     } catch (err) {
       console.log(err.message);
@@ -129,7 +125,7 @@ app.get("/GetImageList", cors(corsOptions), (req, res) => {
   GetImageList();
 });
 
-app.get("/GetAlbums", cors(corsOptions), (req, res) => {
+app.get("/GetAlbums", (req, res) => {
   async function GetAlbums() {
     try {
       let db = await connectDB();
