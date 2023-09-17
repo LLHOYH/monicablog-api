@@ -101,7 +101,9 @@ app.get("/GetImageList", (req, res) => {
       console.log(db);
       let col = await db.collection("images");
       let result = await col.find().toArray();
-      res.json(result);
+      //this result is an array,
+      //therefore need to wrap this in an object
+      res.json({ result });
     } catch (err) {
       console.log(err.message);
     }
@@ -116,7 +118,9 @@ app.get("/GetAlbums", (req, res) => {
       let db = await connectDB();
       let col = await db.collection("albums");
       let result = await col.find().toArray();
-      res.json(result);
+      //this result is an array,
+      //therefore need to wrap this in an object
+      res.json({ result });
     } catch (err) {
       console.log(err.message);
     }
