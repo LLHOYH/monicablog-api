@@ -39,7 +39,7 @@ const corsOptions = {
       callback(new Error(`Origin ${origin} not allowed!`));
     }
   },
-  method: "GET,POST,PUT,DELETE,HEAD,PATCH",
+  methods: "GET,POST,PUT,DELETE,HEAD,PATCH",
   allowedHeaders: "Content-Type,Authorization",
 };
 app.use(cors(corsOptions));
