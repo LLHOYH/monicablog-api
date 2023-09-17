@@ -117,8 +117,7 @@ app.get("/GetImageList", (req, res) => {
       let result = await col.find().toArray();
       //this result is an array,
       //therefore need to wrap this in an object
-      res.setHeader("Content-Type", "application/json");
-      res.json({ result: result });
+      res.send({ result: result });
     } catch (err) {
       console.log(err.message);
     }
@@ -135,8 +134,7 @@ app.get("/GetAlbums", (req, res) => {
       let result = await col.find().toArray();
       //this result is an array,
       //therefore need to wrap this in an object
-      res.setHeader("Content-Type", "application/json");
-      res.json({ result: result });
+      res.send({ result: result });
     } catch (err) {
       console.log(err.message);
     }
