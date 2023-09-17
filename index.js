@@ -91,7 +91,7 @@ async function InsertAlbums() {
 }
 
 app.get("/", (req, res) => {
-  console.log("Index Here, Cors working");
+  res.send("Welcome to API");
 });
 
 app.get("/GetImageList", (req, res) => {
